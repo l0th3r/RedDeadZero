@@ -9,6 +9,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="rdz_main.cpp" />
+    <ClCompile Include="rdz_ped.cpp" />
     <ClCompile Include="rdz_tools.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -16,6 +17,8 @@
     <ClInclude Include="..\..\inc\enums.h" />
     <ClInclude Include="..\..\inc\natives.h" />
     <ClInclude Include="..\..\inc\types.h" />
+    <ClInclude Include="rdz_ped.h" />
+    <ClInclude Include="rdz_tools.h" />
     <ClInclude Include="script.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
