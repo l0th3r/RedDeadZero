@@ -14,8 +14,10 @@ struct peds_t
 // allocate struct pointer
 peds_t* create_peds_t();
 
-// load all human peds on target struct
-void update_human_ped_data(peds_t* target_t);
+
+// search through _to_search and store in _target peds that are in fight with _player
+// return false if nothing was find
+void update_shooting_peds(peds_t* _target_t, player_t* _player);
 
 // deallocate peds_t struct
 void destroy_peds_t(peds_t* _input);

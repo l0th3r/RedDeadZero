@@ -3,31 +3,70 @@
 */
 
 #include "script.h"
-#include "rdz_tools.h"
 #include "rdz_player.h"
+#include "rdz_tools.h"
+#include "rdz_ped.h"
 
-bool is_bullet_near_player(float distance)
+#include <stdio.h>
+
+float get_fps()
 {
-
+	return MISC::GET_FRAME_TIME();
 }
 
-// print string to HUD
-void print_to_HUD(char* input)
+void print_to_screen(char* _input, Vector2 _pos)
 {
-	float x = 0.15;
-	float y = 0.30;
-
 	HUD::SET_TEXT_SCALE(1, 0.3);
 	HUD::_SET_TEXT_COLOR(255, 255, 255, 255);
-	const char* result = MISC::_CREATE_VAR_STRING(10, "LITERAL_STRING", input);
-	HUD::_DISPLAY_TEXT(result, x, y);
+	const char* result = MISC::_CREATE_VAR_STRING(10, "LITERAL_STRING", _input);
+	HUD::_DISPLAY_TEXT(result, _pos.x, _pos.y);
 }
 
-bool can_update_this_frame(player_t* _input)
+void print_debug(player_t* _player)
 {
-	bool output = true;
+	char buffer[100];
 
-	// check if player ped exists and control is on (exemple not in a cutscene)
-	if (!ENTITY::DOES_ENTITY_EXIST(_input->ped_id) || !PLAYER::IS_PLAYER_CONTROL_ON(_input->player))
-		output = false;
+	// start position
+	Vector2 pos;
+	pos.x = 0.10;
+	pos.y = 0.33;
+
+	print_to_screen("=== DEBUG ===", pos);
+	pos.y += 0.04;
+
+	// print FPS
+	sprintf(buffer, "FPS = %f", 1 / MISC::GET_FRAME_TIME());
+	print_to_screen(buffer, pos);
+	pos.y += 0.03;
+
+	// print is bullet near player
+	sprintf(buffer, "player position = x: %f / y: %f / z: %f", _player->pos.x, _player->pos.y, _player->pos.z);
+	print_to_screen(buffer, pos);
+	pos.y += 0.03;
+
+	// print is player aiming
+	sprintf(buffer, "is aiming = %d", _player->is_aiming);
+	print_to_screen(buffer, pos);
+	pos.y += 0.03;
+
+	// print is bullet near player
+	sprintf(buffer, "is bullet impacted player = %d", _player->is_bullet_near);
+	print_to_screen(buffer, pos);
+	pos.y += 0.03;
+
+	// print is bullet near player
+	sprintf(buffer, "player weapon = %u", _player->weapon);
+	print_to_screen(buffer, pos);
+	pos.y += 0.03;
+
+	print_to_screen("=============", pos);
+}
+
+void print_to_HUD(char* input)
+{
+	Vector2 pos;
+	pos.x = 0.15;
+	pos.y = 0.30;
+
+	print_to_screen(input, pos);
 }

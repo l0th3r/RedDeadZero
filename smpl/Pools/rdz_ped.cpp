@@ -3,8 +3,12 @@
 */
 
 #include "script.h"
+#include "rdz_player.h"
 #include "rdz_ped.h"
+#include "rdz_tools.h"
+
 #include <stdlib.h>
+#include <stdio.h>
 
 
 peds_t* create_peds_t()
@@ -20,26 +24,30 @@ peds_t* create_peds_t()
 	return output;
 }
 
-void update_human_ped_data(peds_t* target_t)
-{
+void update_shooting_peds(peds_t* _target_t, player_t* _player)
+{	
 	// to store all peds
-	Ped all_peds[ARR_SIZE];
-	// all peds count
-	int tmp_c = 0;
+	Ped peds[ARR_SIZE];
 
-	// load all peds
-	tmp_c = worldGetAllPeds(all_peds, ARR_SIZE);
+	// all peds and count
+	int count = worldGetAllPeds(peds, ARR_SIZE);
 
-	// reset human count
-	target_t->count = 0;
+	// reset target counter
+	_target_t->count = 0;
 
-	// only set export human ones
-	for (int i = 0; i < tmp_c; i++)
+	for (int i = 0; i < count; i++)
 	{
-		if (PED::IS_PED_HUMAN(all_peds[i]))
+		if (
+			PED::IS_ANY_HOSTILE_PED_NEAR_POINT(_player->ped_id, _player->pos.x, _player->pos.y, _player->pos.z, 60.0) &&
+			PED::IS_PED_IN_COMBAT(peds[i], _player->ped_id) &
+			!(PED::GET_PED_RELATIONSHIP_GROUP_HASH(peds[i]) == 0x3D714F12) &&
+			PED::IS_PED_HUMAN(peds[i]) & !PED::IS_PED_A_PLAYER(peds[i]) &
+			!PED::IS_PED_DEAD_OR_DYING(peds[i], true)
+		)
 		{
-			target_t->peds[target_t->count] = all_peds[i];
-			target_t->count++;
+			// load it in the target s truct
+			_target_t->peds[_target_t->count] = peds[i];
+			_target_t->count++;
 		}
 	}
 }
