@@ -4,6 +4,7 @@
 
 #include "rdz_tools.h"
 #include "rdz_ped.h"
+#include "rdz_player.h"
 
 //ENUM WEAPON HASH - USE SED/tr/cut with pipes |
 //void SET_PARTICLE_FX_BULLET_IMPACT_SCALE(float scale)
@@ -13,24 +14,29 @@
 // define a human struct (to store only human_peds peds)
 peds_t* human_peds;
 
+// define player data
+player_t* user;
+
 void update()
 {
-	// player
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
+	bool temp;
 
-	// check if player ped exists and control is on (e.g. not in a cutscene)
-	if (!ENTITY::DOES_ENTITY_EXIST(playerPed) || !PLAYER::IS_PLAYER_CONTROL_ON(player))
-		return;
+	update_player_data(user, 1);
+	temp = MISC::IS_BULLET_IN_AREA(user->pos.x - 10, user->pos.y - 10, user->pos.x + 10, user->pos.y + 10, 1);
+
+
+	char buffer[50];
+	sprintf(buffer, "res = %d", temp);
+	print_to_HUD(buffer);
 }
 
 void main()
 {
-	//allocate human_peds struct
 	human_peds = create_peds_t();
+	user = create_player_t();
 
-	// load human_peds before update all frame
 	update_human_ped_data(human_peds);
+	update_player_data(user, 2);
 
 	while (true)
 	{
@@ -38,7 +44,9 @@ void main()
 		WAIT(0);
 	}
 
+	// i'm not sure thats useful :/
 	destroy_peds_t(human_peds);
+	destroy_player_t(user);
 }
 
 void ScriptMain()

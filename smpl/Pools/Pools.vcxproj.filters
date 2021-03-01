@@ -5,6 +5,7 @@
     <ClCompile Include="rdz_tools.cpp" />
     <ClCompile Include="rdz_main.cpp" />
     <ClCompile Include="rdz_ped.cpp" />
+    <ClCompile Include="rdz_player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\enums.h">
@@ -22,6 +23,7 @@
     </ClInclude>
     <ClInclude Include="rdz_ped.h" />
     <ClInclude Include="rdz_tools.h" />
+    <ClInclude Include="rdz_player.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">

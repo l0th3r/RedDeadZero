@@ -17,7 +17,7 @@ peds_t* create_peds_t();
 // load all human peds on target struct
 void update_human_ped_data(peds_t* target_t);
 
-// free the struct
+// deallocate peds_t struct
 void destroy_peds_t(peds_t* _input);
 
 #endif
