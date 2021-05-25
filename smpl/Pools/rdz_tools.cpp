@@ -11,7 +11,7 @@
 
 float get_fps()
 {
-	return MISC::GET_FRAME_TIME();
+	return 1 / MISC::GET_FRAME_TIME();
 }
 
 void print_to_screen(char* _input, Vector2 _pos)
@@ -35,7 +35,7 @@ void print_debug(player_t* _player)
 	pos.y += 0.04;
 
 	// print FPS
-	sprintf(buffer, "FPS = %f", 1 / MISC::GET_FRAME_TIME());
+	sprintf(buffer, "FPS = %f", get_fps());
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 

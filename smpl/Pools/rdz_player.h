@@ -24,20 +24,23 @@ struct player_t
 // allocate a player_t struct
 player_t* create_player_t();
 
+// get the player everywhere
+player_t* init_player();
+
 // update player_t datas
 // _restriction (all update previous ones, 1 update 0 and 1):
 // 2 hard restriction, update needed every frames.
 // 1 medium restriction, update mod things (exemple, trigger zones, etc).
 // 0 light restriction, update everything.
-void update_player_data(player_t* _player, byte _restriction);
+void update_player_data(byte _restriction);
 
 // return true if the player is aiming with specified weapon
-bool is_player_aiming_with_weapon(player_t* _player, Hash _weapon);
+bool is_player_aiming_with_weapon(Hash _weapon);
 
 // return true if mod can be executed
-bool can_update_this_frame(player_t* _input);
+bool can_update_this_frame();
 
 // deallocate a player_t struct
-void destroy_player_t(player_t* _input);
+void destroy_player_t();
 
 #endif

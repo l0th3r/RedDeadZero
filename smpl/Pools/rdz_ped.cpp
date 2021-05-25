@@ -52,6 +52,13 @@ void update_shooting_peds(peds_t* _target_t, player_t* _player)
 	}
 }
 
+Hash get_ped_weapon(Ped playerPed)
+{
+	auto weapon = new Hash;
+	WEAPON::GET_CURRENT_PED_WEAPON(playerPed, weapon, 0, 0, 1);
+	return *weapon;
+}
+
 void destroy_peds_t(peds_t* _input)
 {
 	free(_input);

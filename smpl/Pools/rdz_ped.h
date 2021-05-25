@@ -14,6 +14,7 @@ struct peds_t
 // allocate struct pointer
 peds_t* create_peds_t();
 
+Hash get_ped_weapon(Ped playerPed);
 
 // search through _to_search and store in _target peds that are in fight with _player
 // return false if nothing was find

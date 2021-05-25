@@ -18,7 +18,7 @@ bool can_slow = true;
 
 void update()
 {
-	update_player_data(user, 1);
+	update_player_data(1);
 	print_debug(user);
 	
 	// is bullet near player
@@ -38,7 +38,6 @@ void update()
 				ped_pos = ENTITY::GET_ENTITY_COORDS(shooting_peds->peds[i], true, true);
 				GRAPHICS::SET_PARTICLE_FX_BULLET_IMPACT_SCALE(10);
 				MISC::SHOOT_SINGLE_BULLET_BETWEEN_COORDS(user->pos.x, user->pos.y, user->pos.z, ped_pos.x, ped_pos.y, ped_pos.z, 99999, true, 0x8580C63E, user->ped_id, false, false, 999, true);
-				GRAPHICS::SET_PARTICLE_FX_BULLET_IMPACT_SCALE(1);
 			}
 		}
 		MISC::SET_TIME_SCALE(0.1);
@@ -57,14 +56,13 @@ void update()
 void main()
 {
 	shooting_peds = create_peds_t();
-	user = create_player_t();
 
-	update_player_data(user, 2);
+	update_player_data(2);
 
 	while (true)
 	{
 		// check if the mod can be read
-		if (can_update_this_frame(user))
+		if (can_update_this_frame())
 			update();
 
 		WAIT(0);
@@ -72,7 +70,7 @@ void main()
 
 	// i'm not sure thats useful :/
 	destroy_peds_t(shooting_peds);
-	destroy_player_t(user);
+	destroy_player_t();
 }
 
 void ScriptMain()
