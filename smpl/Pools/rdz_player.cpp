@@ -55,7 +55,9 @@ void update_player_data(Restriction _restriction)
 		_player->rot = ENTITY::GET_ENTITY_ROTATION(_player->ped_id, 0);
 		_player->cam_rot = CAM::GET_GAMEPLAY_CAM_ROT(0);
 		_player->fwd = ENTITY::GET_ENTITY_FORWARD_VECTOR(_player->ped_id);
+		_player->vel = ENTITY::GET_ENTITY_VELOCITY(_player->ped_id, true);
 		_player->is_jumping = PED::IS_PED_JUMPING(_player->ped_id);
+		_player->is_in_air = ENTITY::IS_ENTITY_IN_AIR(_player->ped_id, true);
 		_player->weapon = get_ped_weapon(_player->ped_id);
 	}
 

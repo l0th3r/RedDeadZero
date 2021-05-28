@@ -6,6 +6,8 @@
 #include "rdz_ped.h"
 #include "rdz_tools.h"
 #include "rdz_keyboard.h"
+#include "rdz_power.h"
+#include "rdz_database.h"
 
 //GRAPHICS::SET_PARTICLE_FX_BULLET_IMPACT_SCALE(10);
 
@@ -13,6 +15,8 @@
 peds_t* shooting_peds;
 
 bool can_slow = true;
+bool request_landing = false;
+float top_speed = 0;
 
 void update()
 {
@@ -24,13 +28,29 @@ void update()
 	print_debug();
 
 	MISC::SET_SUPER_JUMP_THIS_FRAME(user->player);
+	effects_on_player();
 
-	if (controls->dash_key)
+	if (!user->is_in_air && controls->sprint_key)
 	{
-		ENTITY::SET_ENTITY_ROTATION(user->ped_id, user->rot.x, user->rot.y, user->cam_rot.z, 0, true);
-		//ENTITY::SET_ENTITY_VELOCITY(user->ped_id, user->fwd.x * 20, user->fwd.y * 20, user->fwd.z * 20);
-		ENTITY::SET_ENTITY_COORDS_NO_OFFSET(user->ped_id, user->pos.x + (user->fwd.x * 5), user->pos.y + (user->fwd.y * 5), user->pos.z + (user->fwd.z * 5), true, true, true);
-		ENTITY::_0x9587913B9E772D29(user->ped_id, false); // set the player on the ground correctly
+		// dash();
+	}
+
+	// charged jump conditions
+	if (user->is_in_air && controls->attack_key)
+	{		
+		if (ENTITY::GET_ENTITY_SPEED(user->ped_id) > top_speed)
+			top_speed = ENTITY::GET_ENTITY_SPEED(user->ped_id);
+
+		charged_jump();
+		request_landing = true;
+	}
+
+	// landing
+	if (request_landing && !user->is_in_air)
+	{
+		smash_landing(top_speed);
+		request_landing = false;
+		top_speed = 0;
 	}
 }
 

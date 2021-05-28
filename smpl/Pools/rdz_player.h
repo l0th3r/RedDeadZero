@@ -19,10 +19,14 @@ struct player_t
 	Vector3 cam_rot;
 	// store forward vector
 	Vector3 fwd;
+	// store velocity
+	Vector3 vel;
 	// is true if the player is aiming
 	bool is_aiming;
 	// is player jumping
 	bool is_jumping;
+	// is player in air
+	bool is_in_air;
 
 // TRIGGERS
 	// true if bullet is near player

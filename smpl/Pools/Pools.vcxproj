@@ -8,7 +8,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="rdz_dash.cpp" />
+    <ClCompile Include="rdz_powers.cpp" />
     <ClCompile Include="rdz_keyboard.cpp" />
     <ClCompile Include="rdz_main.cpp" />
     <ClCompile Include="rdz_ped.cpp" />
@@ -20,8 +20,9 @@
     <ClInclude Include="..\..\inc\enums.h" />
     <ClInclude Include="..\..\inc\natives.h" />
     <ClInclude Include="..\..\inc\types.h" />
+    <ClInclude Include="rdz_database.h" />
     <ClInclude Include="rdz_keyboard.h" />
-    <ClInclude Include="rdz_dash.h" />
+    <ClInclude Include="rdz_power.h" />
     <ClInclude Include="rdz_player.h" />
     <ClInclude Include="rdz_ped.h" />
     <ClInclude Include="rdz_tools.h" />

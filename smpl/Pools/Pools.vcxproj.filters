@@ -6,8 +6,8 @@
     <ClCompile Include="rdz_main.cpp" />
     <ClCompile Include="rdz_ped.cpp" />
     <ClCompile Include="rdz_player.cpp" />
-    <ClCompile Include="rdz_dash.cpp" />
     <ClCompile Include="rdz_keyboard.cpp" />
+    <ClCompile Include="rdz_powers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\enums.h">
@@ -26,8 +26,9 @@
     <ClInclude Include="rdz_ped.h" />
     <ClInclude Include="rdz_tools.h" />
     <ClInclude Include="rdz_player.h" />
-    <ClInclude Include="rdz_dash.h" />
     <ClInclude Include="rdz_keyboard.h" />
+    <ClInclude Include="rdz_power.h" />
+    <ClInclude Include="rdz_database.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">

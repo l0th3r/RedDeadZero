@@ -7,6 +7,7 @@ struct controls_t
 {
 	bool dash_key;
 	bool attack_key;
+	bool sprint_key;
 };
 
 // get controls struct pointer
