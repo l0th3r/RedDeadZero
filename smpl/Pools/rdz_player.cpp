@@ -45,6 +45,17 @@ bool check_bullet_near_player(Vector3 _pos, int _radius)
 	return MISC::IS_BULLET_IN_AREA(_pos.x - _radius, _pos.y - _radius, _pos.x + _radius, _pos.y + _radius, false);
 }
 
+bool is_impact_on_player(Vector3 coords, int _tolerance)
+{
+	player_t* _player = init_player();
+
+	if ((coords.x >= _player->pos.x - _tolerance && coords.x <= _player->pos.x + _tolerance) &&
+		(coords.y >= _player->pos.y - _tolerance && coords.y <= _player->pos.y + _tolerance))
+		return true;
+	else
+		return false;
+}
+
 void update_player_data(Restriction _restriction)
 {
 	player_t* _player = init_player();

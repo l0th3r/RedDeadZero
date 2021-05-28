@@ -43,7 +43,7 @@ void update_controls()
 	controls->sprint_key = isInputDown("INPUT_SPRINT", true);
 
 	PAD::DISABLE_CONTROL_ACTION(0, str_to_hash("INPUT_ATTACK"), true);
-	//PAD::DISABLE_CONTROL_ACTION(0, str_to_hash("INPUT_SPRINT"), true);
+	// PAD::DISABLE_CONTROL_ACTION(0, str_to_hash("INPUT_SPRINT"), true);
 }
 
 bool isInputPressed(string input_hash_name, bool is_disabled)

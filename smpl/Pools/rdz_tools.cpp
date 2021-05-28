@@ -92,6 +92,41 @@ void print_debug()
 	print_to_screen("=============", pos);
 }
 
+void print_controls()
+{
+	char buffer[100];
+
+	Vector2 pos;
+	pos.x = 0.10;
+	pos.y = 0.20;
+
+	print_to_screen("=== Controls ===", pos);
+	pos.y += 0.04;
+
+	sprintf(buffer, "Hold '%s' to deflect while on the ground.", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
+	print_to_screen(buffer, pos);
+	pos.y += 0.02;
+	sprintf(buffer, "Default: 'MOUSE LEFT CLICK'", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
+	print_to_screen(buffer, pos);
+	pos.y += 0.03;
+
+	sprintf(buffer, "Hold '%s' while in the air to dash on the ground.", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
+	print_to_screen(buffer, pos);
+	pos.y += 0.02;
+	sprintf(buffer, "Default: 'MOUSE LEFT CLICK'", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
+	print_to_screen(buffer, pos);
+	pos.y += 0.03;
+
+	sprintf(buffer, "Press '%s' to super jump.", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_JUMP")));
+	print_to_screen(buffer, pos);
+	pos.y += 0.02;
+	sprintf(buffer, "Default: 'SPACE BAR'", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
+	print_to_screen(buffer, pos);
+	pos.y += 0.03;
+
+	print_to_screen("=============", pos);
+}
+
 void print_to_HUD(char* input)
 {
 	Vector2 pos;

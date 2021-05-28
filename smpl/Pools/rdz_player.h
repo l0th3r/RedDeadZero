@@ -27,6 +27,8 @@ struct player_t
 	bool is_jumping;
 	// is player in air
 	bool is_in_air;
+	// is defending
+	bool is_defending;
 
 // TRIGGERS
 	// true if bullet is near player
@@ -57,6 +59,9 @@ void update_player_data(Restriction _restriction);
 
 // return true if the player is aiming with specified weapon
 bool is_player_aiming_with_weapon(Hash _weapon);
+
+// check if the given coords are in the player
+bool is_impact_on_player(Vector3 coords, int _tolerance);
 
 // return true if mod can be executed
 bool can_update_this_frame();
