@@ -6,4 +6,7 @@
 
 #include "..\..\inc\main.h"
 
+#include <string>
+using namespace std;
+
 void ScriptMain();

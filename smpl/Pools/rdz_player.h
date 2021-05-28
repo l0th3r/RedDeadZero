@@ -4,6 +4,7 @@
 // struct to store player data
 struct player_t
 {
+// DATA
 	// player entity id
 	Player player;
 	// player ped id
@@ -12,27 +13,43 @@ struct player_t
 	Hash weapon;
 	// store player's postion
 	Vector3 pos;
+	// store player's rotation
+	Vector3 rot;
+	// store camera rotation
+	Vector3 cam_rot;
+	// store forward vector
+	Vector3 fwd;
 	// is true if the player is aiming
 	bool is_aiming;
+	// is player jumping
+	bool is_jumping;
 
-	//TRIGGERS
+// TRIGGERS
 	// true if bullet is near player
 	bool is_bullet_near;
 
+// RULES
+	bool can_deflect;
+	bool can_dash;
+};
+
+// player update restriction level
+enum class Restriction
+{
+	r_small = 0, // light restriction, update everything.
+	r_medium = 1, // medium restriction, update mod things (exemple: trigger zones, etc).
+	r_all = 2, // hard restriction, update what is needed every frames.
 };
 
 // allocate a player_t struct
 player_t* create_player_t();
 
-// get the player everywhere
+// get player struct pointer
 player_t* init_player();
 
 // update player_t datas
 // _restriction (all update previous ones, 1 update 0 and 1):
-// 2 hard restriction, update needed every frames.
-// 1 medium restriction, update mod things (exemple, trigger zones, etc).
-// 0 light restriction, update everything.
-void update_player_data(byte _restriction);
+void update_player_data(Restriction _restriction);
 
 // return true if the player is aiming with specified weapon
 bool is_player_aiming_with_weapon(Hash _weapon);
