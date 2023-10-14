@@ -23,13 +23,15 @@ peds_t* create_peds_t()
 	return output;
 }
 
-void update_shooting_peds(peds_t* _target_t, player_t* _player)
-{	
+void update_shooting_peds(peds_t* _target_t, Ped _target)
+{
 	// to store all peds
 	Ped peds[ARR_SIZE];
 
 	// all peds and count
 	int count = worldGetAllPeds(peds, ARR_SIZE);
+
+	Vector3 target_pos = ENTITY::GET_ENTITY_COORDS(_target, true, 0);
 
 	// reset target counter
 	_target_t->count = 0;
@@ -37,8 +39,8 @@ void update_shooting_peds(peds_t* _target_t, player_t* _player)
 	for (int i = 0; i < count; i++)
 	{
 		if (
-			PED::IS_ANY_HOSTILE_PED_NEAR_POINT(_player->ped_id, _player->pos.x, _player->pos.y, _player->pos.z, 60.0) &&
-			PED::IS_PED_IN_COMBAT(peds[i], _player->ped_id) &
+			PED::IS_ANY_HOSTILE_PED_NEAR_POINT(_target, target_pos.x, target_pos.y, target_pos.z, 60.0) &&
+			PED::IS_PED_IN_COMBAT(peds[i], _target) &
 			!(PED::GET_PED_RELATIONSHIP_GROUP_HASH(peds[i]) == 0x3D714F12) &&
 			PED::IS_PED_HUMAN(peds[i]) & !PED::IS_PED_A_PLAYER(peds[i]) &
 			!PED::IS_PED_DEAD_OR_DYING(peds[i], true)

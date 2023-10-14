@@ -42,9 +42,9 @@ struct player_t
 // player update restriction level
 enum class Restriction
 {
-	r_small = 0, // light restriction, update everything.
-	r_medium = 1, // medium restriction, update mod things (exemple: trigger zones, etc).
-	r_all = 2, // hard restriction, update what is needed every frames.
+	r_small = 0, // hard restriction, update what is needed every frames.
+	r_medium, // medium restriction, update mod things (exemple: trigger zones, etc).
+	r_all, // light restriction, update everything.
 };
 
 // allocate a player_t struct

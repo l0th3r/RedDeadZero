@@ -15,6 +15,7 @@
 peds_t* shooting_peds;
 
 bool can_slow = true;
+bool request_start = false;
 bool request_landing = false;
 float top_speed = 0;
 
@@ -25,28 +26,21 @@ void update()
 
 	update_controls();
 	update_player_data(Restriction::r_medium);
-	update_shooting_peds(shooting_peds, user);
-	// print_debug();
+
+	//print_debug();
 	print_controls();
 
 	PED::SET_PED_CAN_RAGDOLL(user->ped_id, false);
-
 	MISC::SET_SUPER_JUMP_THIS_FRAME(user->player);
 	effects_on_player();
 
+	// search for shooting peds only if a bullet is near (instead of every frame)
+	if (user->is_bullet_near)
+		update_shooting_peds(shooting_peds, user->ped_id);
+
 	if (!user->is_in_air && controls->attack_key)
 	{
-		Vector3 ped_pos;
-		Vector3 last_impact;
-		for (int i = 0; i < shooting_peds->count; i++)
-		{
-			ped_pos = ENTITY::GET_ENTITY_COORDS(shooting_peds->peds[i], true, true);
-			WEAPON::GET_PED_LAST_WEAPON_IMPACT_COORD(shooting_peds->peds[i], &last_impact);
-			
-			if (is_impact_on_player(last_impact, 2))
-				MISC::SHOOT_SINGLE_BULLET_BETWEEN_COORDS(user->pos.x, user->pos.y, user->pos.z, ped_pos.x, ped_pos.y, ped_pos.z, 99999, true, 0x8580C63E, user->ped_id, true, false, 999, true);
-		}
-
+		deflect_bullets(shooting_peds);
 		print_to_HUD("DEFLECTING BULLETS");
 	}
 
@@ -101,8 +95,6 @@ void ScriptMain()
 	srand(GetTickCount());
 	main();
 }
-
-
 
 // deflection
 
