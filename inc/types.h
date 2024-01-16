@@ -34,15 +34,6 @@ using Volume = ScrHandle;
 
 #define ALIGN8 __declspec(align(8))
 
-// manually added
-struct Vector2
-{
-	ALIGN8 float x;
-	ALIGN8 float y;
-};
-
-static_assert(sizeof(Vector2) == 16, "");
-
 struct Vector3
 {
 	ALIGN8 float x;
