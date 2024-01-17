@@ -16,7 +16,4 @@ void smash_landing(float impact_force);
 // deflect bullets this frame
 void deflect_bullets(peds_t* shooting_peds);
 
-// effects executed every frames
-void effects_on_player();
-
 #endif

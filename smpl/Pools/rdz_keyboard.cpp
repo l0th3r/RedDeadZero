@@ -14,26 +14,6 @@ controls_t* init_controls()
 	return contr;
 }
 
-/* 
-bool add_disable_input(string new_input)
-{
-	controls_t* controls = init_controls();
-	string* temp = NULL;
-	bool response = false;
-
-	temp = (string*)realloc(controls->disable_inputs, controls->d_count + 1);
-	
-	if (temp)
-	{
-		controls->disable_inputs[controls->d_count] = new_input;
-		controls->d_count++;
-		response = true;
-	}
-
-	return response;
-}
-*/
-
 void update_controls()
 {
 	controls_t* controls = init_controls();

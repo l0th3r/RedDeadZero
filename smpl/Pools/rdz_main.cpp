@@ -14,25 +14,35 @@
 // store humans that are shooting to player
 peds_t* shooting_peds;
 
-bool can_slow = true;
 bool request_start = false;
 bool request_landing = false;
 float top_speed = 0;
 
-void update()
+bool update_enabled = true;
+bool show_controls = true;
+
+void power_update()
 {
 	player_t* user = init_player();
+
+	if (update_enabled == false)
+	{
+		PLAYER::SET_PLAYER_INVINCIBLE(user->player, false);
+		PED::SET_PED_CAN_RAGDOLL(user->ped_id, true);
+		return;
+	}
+
 	controls_t* controls = init_controls();
 
 	update_controls();
 	update_player_data(Restriction::r_medium);
 
-	//print_debug();
-	print_controls();
-
-	PED::SET_PED_CAN_RAGDOLL(user->ped_id, false);
 	MISC::SET_SUPER_JUMP_THIS_FRAME(user->player);
-	effects_on_player();
+	PLAYER::SET_PLAYER_INVINCIBLE(user->player, true);
+	PED::SET_PED_CAN_RAGDOLL(user->ped_id, false);
+
+	PED::_RESTORE_PED_STAMINA(user->ped_id, 100.0f);
+	WEAPON::_HIDE_PED_WEAPONS(user->ped_id, 2, true);
 
 	// search for shooting peds only if a bullet is near (instead of every frame)
 	if (user->is_bullet_near)
@@ -41,7 +51,9 @@ void update()
 	if (!user->is_in_air && controls->attack_key)
 	{
 		deflect_bullets(shooting_peds);
-		print_to_HUD("DEFLECTING BULLETS");
+		
+		if(show_controls == true)
+			print_to_HUD("DEFLECTING BULLETS");
 	}
 
 	// charged jump conditions
@@ -53,7 +65,8 @@ void update()
 		charged_jump();
 		request_landing = true;
 
-		print_to_HUD("SUPER DASH");
+		if (show_controls == true)
+			print_to_HUD("SUPER DASH");
 	}
 
 	// landing
@@ -67,24 +80,35 @@ void update()
 
 void main()
 {
-	/*
-	add_disable_input("INPUT_ATTACK");
-	add_disable_input("INPUT_SPRINT");
-	*/
-
 	shooting_peds = create_peds_t();
 	update_player_data(Restriction::r_all);
 
 	while (true)
 	{
-		// check if the mod can be read
 		if (can_update_this_frame())
-			update();
+		{
+			if (show_controls == true)
+			{
+				if(update_enabled == true)
+					print_controls();
+			}
+
+			if (isInputPressed("INPUT_CREATOR_RT", false) == true)
+			{
+				update_enabled = !update_enabled;
+			}
+
+			if (isInputPressed("INPUT_CREATOR_LT", false) == true)
+			{
+				show_controls = !show_controls;
+			}
+
+			power_update();
+		}
 
 		WAIT(0);
 	}
 
-	// i'm not sure thats useful :/
 	destroy_peds_t(shooting_peds);
 	destroy_player_t();
 	destroy_controls_t();
@@ -92,19 +116,6 @@ void main()
 
 void ScriptMain()
 {
-	srand(GetTickCount());
+	srand(GetTickCount64());
 	main();
 }
-
-// deflection
-
-//BOOL MISC::IS_BULLET_IN_AREA(float p0, float p1, float p2, float p3, BOOL p4)
-/*
-char buffer[100];
-sprintf(buffer, "last impact coord = x: %f / y: %f / z: %f", tmp.x, tmp.y, tmp.z);
-print_to_HUD(buffer);
-if (user->is_aiming)
-{
-	MISC::SET_TIME_SCALE(1);
-}
-*/

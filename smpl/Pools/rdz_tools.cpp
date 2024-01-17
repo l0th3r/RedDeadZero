@@ -36,56 +36,56 @@ void print_debug()
 	print_to_screen("=== DEBUG ===", pos);
 	pos.y += 0.04;
 
-	sprintf(buffer, "FPS = %f", get_fps());
+	sprintf_s(buffer, "FPS = %f", get_fps());
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "player position = x: %f / y: %f / z: %f", _player->pos.x, _player->pos.y, _player->pos.z);
+	sprintf_s(buffer, "player position = x: %f / y: %f / z: %f", _player->pos.x, _player->pos.y, _player->pos.z);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "player rotation = x: %f / y: %f / z: %f", _player->rot.x, _player->rot.y, _player->rot.z);
+	sprintf_s(buffer, "player rotation = x: %f / y: %f / z: %f", _player->rot.x, _player->rot.y, _player->rot.z);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "camera rotation = x: %f / y: %f / z: %f", _player->cam_rot.x, _player->cam_rot.y, _player->cam_rot.z);
+	sprintf_s(buffer, "camera rotation = x: %f / y: %f / z: %f", _player->cam_rot.x, _player->cam_rot.y, _player->cam_rot.z);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "fwd vector = x: %f / y: %f / z: %f", _player->fwd.x, _player->fwd.y, _player->fwd.z);
+	sprintf_s(buffer, "fwd vector = x: %f / y: %f / z: %f", _player->fwd.x, _player->fwd.y, _player->fwd.z);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
 	Vector3 vel = ENTITY::GET_ENTITY_VELOCITY(_player->ped_id, true);
-	sprintf(buffer, "velocity = x: %f / y: %f / z: %f", vel.x, vel.y, vel.z);
+	sprintf_s(buffer, "velocity = x: %f / y: %f / z: %f", vel.x, vel.y, vel.z);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "is aiming = %d", _player->is_aiming);
+	sprintf_s(buffer, "is aiming = %d", _player->is_aiming);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "is bullet impacted player = %d", _player->is_bullet_near);
+	sprintf_s(buffer, "is bullet impacted player = %d", _player->is_bullet_near);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "player weapon = %u", _player->weapon);
+	sprintf_s(buffer, "player weapon = %u", _player->weapon);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "attack key = %d", controls->attack_key);
+	sprintf_s(buffer, "attack key = %d", controls->attack_key);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "dash key = %d", controls->dash_key);
+	sprintf_s(buffer, "dash key = %d", controls->dash_key);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "is player jumping = %d", _player->is_jumping);
+	sprintf_s(buffer, "is player jumping = %d", _player->is_jumping);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "is player in air = %d", _player->is_in_air);
+	sprintf_s(buffer, "is player in air = %d", _player->is_in_air);
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
@@ -103,24 +103,23 @@ void print_controls()
 	print_to_screen("=== Controls ===", pos);
 	pos.y += 0.04;
 
-	sprintf(buffer, "Hold '%s' to deflect while on the ground.", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
-	print_to_screen(buffer, pos);
-	pos.y += 0.02;
-	sprintf(buffer, "Default: 'MOUSE LEFT CLICK'", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
+	sprintf_s(buffer, "Press 'PAGE DOWN' to disable all the mod.");
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "Hold '%s' while in the air to dash on the ground.", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
-	print_to_screen(buffer, pos);
-	pos.y += 0.02;
-	sprintf(buffer, "Default: 'MOUSE LEFT CLICK'", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
+	sprintf_s(buffer, "Press 'PAGE UP' to show or hide the controls.");
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
-	sprintf(buffer, "Press '%s' to super jump.", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_JUMP")));
+	sprintf_s(buffer, "Hold '%s' to deflect while on the ground.", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
 	print_to_screen(buffer, pos);
-	pos.y += 0.02;
-	sprintf(buffer, "Default: 'SPACE BAR'", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
+	pos.y += 0.03;
+
+	sprintf_s(buffer, "Hold '%s' while in the air to dash on the ground.", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_ATTACK")));
+	print_to_screen(buffer, pos);
+	pos.y += 0.03;
+
+	sprintf_s(buffer, "Press '%s' to super jump.", HUD::_GET_LABEL_TEXT_BY_HASH(MISC::GET_HASH_KEY("INPUT_JUMP")));
 	print_to_screen(buffer, pos);
 	pos.y += 0.03;
 
@@ -134,4 +133,8 @@ void print_to_HUD(char* input)
 	pos.y = 0.1f;
 
 	print_to_screen(input, pos);
+}
+
+void post_notification(char* content)
+{
 }
